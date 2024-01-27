@@ -8,8 +8,8 @@ try {
     $service->addTask("Зробити завдання 1", 5);
     $service->addTask("Зробити завдання 2", 4);
     $service->addTask("Зробити завдання 3", 3);
-    /*$service->deleteTask(3);
-    $service->completeTask(1);*/
+    $service->deleteTask(3);
+    $service->completeTask(1);
     $service->getTasks();
 } catch (Exception $exception)
 {

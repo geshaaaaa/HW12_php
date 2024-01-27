@@ -10,13 +10,11 @@ class Task
 
     public function __construct(int $id, int $taskPriority, string $taskName, StatusOfTask $status = StatusOfTask::notDone)
     {
-        $this->taskName = $taskName;
-        $this->taskPriority = $taskPriority;
-        $this->id = $id;
-        $this->status = $status;
+        $this->setId($id);
+        $this->setTaskPriority($taskPriority);
+        $this->setTaskName($taskName);
+        $this->setStatus($status);
     }
-
-
 
 
     /**
@@ -35,19 +33,15 @@ class Task
         $this->id = $id;
     }
 
-    /**
-     * @return string
-     */
-    public function getTaskName(): string
-    {
-        return $this->taskName;
-    }
 
     /**
      * @param string $taskName
      */
     public function setTaskName(string $taskName): void
     {
+        if (empty($taskName)) {
+            throw new Exception("Task name cannot be empty.");
+        }
         $this->taskName = $taskName;
     }
 
@@ -64,6 +58,9 @@ class Task
      */
     public function setTaskPriority(int $taskPriority): void
     {
+        if ($taskPriority < 0) {
+            throw new Exception("Priority cannot be negative.");
+            }
         $this->taskPriority = $taskPriority;
     }
 
@@ -75,12 +72,5 @@ class Task
         $this->status = $status;
     }
 
-    /**
-     * @return StatusOfTask
-     */
-    public function getStatus(): StatusOfTask
-    {
-        return $this->status;
-    }
 
 }

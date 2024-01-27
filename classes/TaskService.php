@@ -26,20 +26,21 @@ class TaskService
 
     public function setFilePath(string $filePath): void
     {
+        $this->filePath = $filePath;
         if (!file_exists($filePath)) {
             throw new Exception("File doesnt exist");
         } else {
-            $this->fileToArray($filePath);
+            $this->fileToArray();
         }
     }
-    private function fileToArray($filePath)
+    private function fileToArray()
     {
-        $this->filePath = $filePath;
+       $filePath = $this->getFilePath();
         if (filesize($filePath) == 0) {
             $this->counter = 0;
             $this->tasks = [];
         } else {
-            $serializedData = file_get_contents($this->filePath);
+            $serializedData = file_get_contents($filePath);
             $this->tasks = unserialize($serializedData);
             $this->counter = end($this->tasks)->getId();
         }
